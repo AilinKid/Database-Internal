@@ -8,8 +8,7 @@
      
 ##### 表达式索引： 索引并非一定要建立在一个表的属性上，还可以建立在一个函数或者从表中一个或多个属性计算出来的标量表达式上。
     创 建：CREATE  INDEX  st_lower_idx  ON  student (lower(en_name));
-    查 询：SELECT  *  FROM  student  WHERE  lower(en_name) = ‘jack’;
-    
+    查 询：SELECT  *  FROM  student  WHERE  lower(en_name) = ‘jack’;   
 ##### 部分索引：该索引只包含满足这个谓词的行，不一定非要建立在全表之上
     CREATE INDEX stu_name_idx ON student(name)  where(id>1 AND id<255);
 
