@@ -39,6 +39,8 @@
     2：\set AUTOCOMMIT off 注意这边必须是大写的AUTOCOMMIT，然后手动commit或者rollback。
     运行时显示psql简化命令的完整sql，进入psql时候，使用如下
     ./psql -E dbname 没有名字默认进入与当前用户同名的postgres，否则报错
+    如果只是想在psql中有需要的显示简化命令的完整sql
+    \set ECHO_HIDDEN on/off
 #### cast：
     类型转换的语法，语法比如：cast(1 as TEXT)，将数字1转化成文本类型。
     举个栗子：select round(1/4,4); 除法取小数点后4位，结果为0.0000，因为是整数除法，直接是在0上补后4位。
