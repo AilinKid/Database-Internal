@@ -1,4 +1,44 @@
 # PostgreSQL Notes
+#### psql进入pg的一个门户工具
+    进入数据库：
+    1: ./psql -h 127.0.0.1 -p 5432 student(dbname) postgres(user)
+    2: ./psql -d student(dbname)
+    两种直接利用psql工具进入数据库的方式，或者直接进入psql，在工具内部使用简化命令\c dbname
+    1: ./psql dbname 没有名字默认进入与当前用户同名的postgres，否则报错
+    2: \c dbname
+    psql的常用命令
+    \d 显示数据库中所有表
+    \d tablename 显示该表的结构定义
+    \d indexname 显示该索引的信息
+    \d x？ （？或者*）会显示有关x开头的表，索引，序列等等覆盖该通配的信息
+    \d+ 显示比\d 更加详细的信息
+    如果只想对特定的对象显示
+    可以在\d后面加上相关的名词开头，如
+    \dt 只看表
+    \di 只看索引
+    \ds 只看序列
+    \dv 只看视图
+    \df 只看函数
+    显示执行时间
+    \timing on/off
+    \dn 显示所有的schema
+    \db 显示所有的表空间
+    \du 列出用户
+    \dg 列出组 （这同上一样，都是列出role）
+    \dp tablename 显示出表的权限分配情况
+    \encoding 查看客户端编码情况
+    \encoding utf8 指定编码集
+    \pset 设置输出的显示效果
+    border只是边界的的效果 0无边框，1内边框，2全边框
+    \x 扩展显示，将每一行的每一列数据都拆分成单行展示
+    \i filename（当然可以是相对，绝对路径）在psql工具中，使用外部文件中的sql命令
+    ./psql -f filename(当然可以是相对，绝对路径)，非psql中的启动，执行完了之后还是在外部
+    \? 查看多有的简化命令
+    postgresql避免自动提交
+    1：使用begin开头，最后执行commit或者rollback语句。
+    2：\set AUTOCOMMIT off 注意这边必须是大写的AUTOCOMMIT，然后手动commit或者rollback。
+    运行时显示psql简化命令的完整sql，进入psql时候，使用如下
+    ./psql -E dbname 没有名字默认进入与当前用户同名的postgres，否则报错
 #### cast：
     类型转换的语法，语法比如：cast(1 as TEXT)，将数字1转化成文本类型。
     举个栗子：select round(1/4,4); 除法取小数点后4位，结果为0.0000，因为是整数除法，直接是在0上补后4位。
