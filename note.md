@@ -41,6 +41,37 @@
     ./psql -E dbname 没有名字默认进入与当前用户同名的postgres，否则报错
     如果只是想在psql中有需要的显示简化命令的完整sql
     \set ECHO_HIDDEN on/off
+    
+    continued in 2017-11-14
+    显示当前的search_path
+    show search_path
+    设置当前的模式搜索路径
+    SET search_path TO myschema [,public...];
+    以查询子句来建表，不会把约束搞进来
+    create table tablename as select...
+    以表模板来建表，including all会把所有的约束，索引，存储都弄过来
+    create table tablename （like template including XXX）
+    临时表 可用TEMPOARY 或者 temp 关键字，该表存在于该会话层面，所属模式为pg_temp_x
+    create temp table tablename(...);
+    将该表改成事务层面（自己保证表的创建，和数据插入在同一个事务中）
+    create temp table tablename（...）on commit delete rows;
+    global和local关键字可以用来兼容，实质上没有什么用
+    默认值得使用
+    字段后面加上 default xxx
+    表的修改：
+    alter table tablename add column columnname type;
+    alter table tablename drop column columnname [cascade];
+    alter table tablename add check(...)
+    alter table tablename add constraint name check()/unique()/primary key()
+    alter table tablename alter column id set not null
+    alter table tablename alter column id drop not null
+    alter table tablename drop constraint name
+    alter table tablename alter column columnname type newtype（需要隐式支持）
+    alter table tablename rename cloumn columnname to newcolumnname
+    表的继承 父表可以看见子表的更新的数据（除了新的属性）
+    create table tablename（新增的属性）inherits（父表名）
+    仅看父表自己的数据 加上only
+    select * from only father
 #### cast：
     类型转换的语法，语法比如：cast(1 as TEXT)，将数字1转化成文本类型。
     举个栗子：select round(1/4,4); 除法取小数点后4位，结果为0.0000，因为是整数除法，直接是在0上补后4位。
